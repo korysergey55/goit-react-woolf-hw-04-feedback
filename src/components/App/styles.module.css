@@ -1,0 +1,15 @@
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: fit-content;
+  margin: 50px auto;
+  padding: 20px;
+
+  border-radius: 7px;
+  font-size: 40;
+  color: #010101;
+  background-color: white;
+}
+

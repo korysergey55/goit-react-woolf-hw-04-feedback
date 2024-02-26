@@ -4,7 +4,6 @@ import { nanoid } from 'nanoid'
 
 const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
-
     < div className={styles.btnWripper} >
       {
         options.map((option) => (
