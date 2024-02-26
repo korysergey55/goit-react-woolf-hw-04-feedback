@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import styles from './styles.module.css'
 
 import FeedbackOptions from 'components/feedbackOptions/FeedbackOptions'
@@ -14,19 +14,20 @@ const FeedBack = () => {
   const [options] = useState(Object.keys(state))
   const [totalFeedback, setTotalFeedback] = useState(0)
 
+  const countTotalFeedback = useCallback(() => {
+    return Object.values(state).reduce((acc, item) => {
+      return acc + item
+    }, 0)
+  }, [state])
+
   useEffect(() => {
-    setTotalFeedback(() => countTotalFeedback())
+    setTotalFeedback(countTotalFeedback)
   }, [state, countTotalFeedback])
 
   const onLeaveFeedback = (feedback) => {
     setState((prev) => ({ ...prev, [feedback]: prev[feedback] + 1 }))
   }
 
-  const countTotalFeedback = () => {
-    return Object.values(state).reduce((acc, item) => {
-      return acc + item
-    }, 0)
-  }
 
   const positivePercentage = () => {
     return Math.round((state.good / totalFeedback) * 100)
