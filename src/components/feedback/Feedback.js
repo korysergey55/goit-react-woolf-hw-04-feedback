@@ -50,7 +50,7 @@ const FeedBack = () => {
             totalFeedback={totalFeedback}
             positivePercentage={positivePercentage} />
           :
-          <Notification message={'There is no feedback'} />
+          <Notification message={'There is no feedback!'} />
         }
       </Section>
 
