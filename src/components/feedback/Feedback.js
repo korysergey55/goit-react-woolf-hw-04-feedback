@@ -16,7 +16,7 @@ const FeedBack = () => {
 
   useEffect(() => {
     setTotalFeedback(() => countTotalFeedback())
-  }, [state])
+  }, [state, countTotalFeedback])
 
   const onLeaveFeedback = (feedback) => {
     setState((prev) => ({ ...prev, [feedback]: prev[feedback] + 1 }))
