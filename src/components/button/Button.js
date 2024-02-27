@@ -1,12 +1,12 @@
 import React from 'react'
 import styles from './styles.module.css'
 
-const Button = ({ reset, INITIAL_STATE }) => {
+const Button = ({ reset }) => {
   return (
     <button
       className={styles.button}
       type='button'
-      onClick={() => reset(INITIAL_STATE)}>
+      onClick={reset}>
       Reset feedbacks
     </button>
   );

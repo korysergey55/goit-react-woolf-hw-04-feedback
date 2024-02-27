@@ -12,7 +12,7 @@ const INITIAL_STATE = { good: 0, neutral: 0, bad: 0 }
 const FeedBack = () => {
   const [state, setState] = useState(INITIAL_STATE)
   const [options] = useState(Object.keys(state))
-  const [totalFeedback, setTotalFeedback] = useState(0)
+  const [totalFeedback, setTotal] = useState(0)
 
   const countTotalFeedback = useCallback(() => {
     return Object.values(state).reduce((acc, item) => {
@@ -21,21 +21,23 @@ const FeedBack = () => {
   }, [state])
 
   useEffect(() => {
-    setTotalFeedback(countTotalFeedback)
+    setTotal(countTotalFeedback)
   }, [state, countTotalFeedback])
 
   const onLeaveFeedback = (feedback) => {
     setState((prev) => ({ ...prev, [feedback]: prev[feedback] + 1 }))
   }
 
-
   const positivePercentage = () => {
     return Math.round((state.good / totalFeedback) * 100)
   }
 
+  const resetFeedback = () => {
+    setState(INITIAL_STATE)
+  }
+
   return (
     <section className={styles.container} >
-
       <Section title={'Please leave feedback'}>
         {options.length > 0 &&
           <FeedbackOptions
@@ -55,11 +57,7 @@ const FeedBack = () => {
         }
       </Section>
 
-      {totalFeedback ?
-        <Button reset={setState} INITIAL_STATE={INITIAL_STATE} />
-        : null
-      }
-
+      {totalFeedback ? <Button reset={resetFeedback} /> : null}
     </section>
   );
 }
