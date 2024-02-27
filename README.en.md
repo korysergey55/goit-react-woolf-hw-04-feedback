@@ -1,5 +1,7 @@
 Task- Feedback widget.
 
+- Rebuild aplication using React Huks
+
 - Your task is to create an application for collecting statistics. There are
   only three options for feedback: good, neutral and bad.
 
