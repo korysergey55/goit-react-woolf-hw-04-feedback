@@ -6,7 +6,7 @@ const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
     < div className={styles.btnWripper} >
       {
-        options.map((option) => (
+        options?.map((option) => (
           <button
             key={nanoid()}
             className={styles.button}

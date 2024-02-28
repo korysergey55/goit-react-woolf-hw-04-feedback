@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useState } from 'react'
 import styles from './styles.module.css'
 
 import FeedbackOptions from 'components/feedbackOptions/FeedbackOptions'
@@ -7,43 +7,37 @@ import Section from 'components/section/Section'
 import Notification from 'components/notification/Notification'
 import Button from 'components/button/Button'
 
-const INITIAL_STATE = { good: 0, neutral: 0, bad: 0 }
-
 const FeedBack = () => {
-  const [state, setState] = useState(INITIAL_STATE)
-  const [options] = useState(Object.keys(state))
-  const [totalFeedback, setTotal] = useState(0)
-
-  const countTotalFeedback = useCallback(() => {
-    return Object.values(state).reduce((acc, item) => {
-      return acc + item
-    }, 0)
-  }, [state])
-
-  useEffect(() => {
-    setTotal(countTotalFeedback)
-  }, [state, countTotalFeedback])
+  const [state, setState] = useState({ good: 0, neutral: 0, bad: 0 })
+  console.log(Object.values(state).length)
 
   const onLeaveFeedback = (feedback) => {
     setState((prev) => ({ ...prev, [feedback]: prev[feedback] + 1 }))
   }
 
-  const positivePercentage = () => {
-    return Math.round((state.good / totalFeedback) * 100)
+  const countTotalFeedback = () => {
+    return Object.values(state).reduce((acc, item) => {
+      return acc + item
+    }, 0)
+  }
+
+  const countPositivePercentage = () => {
+    return Math.round((state.good / countTotalFeedback()) * 100)
   }
 
   const resetFeedback = () => {
-    setState(INITIAL_STATE)
+    setState({ good: 0, neutral: 0, bad: 0 })
   }
+
+  const positivePercentage = countPositivePercentage()
+  const totalFeedback = countTotalFeedback()
 
   return (
     <section className={styles.container} >
       <Section title={'Please leave feedback'}>
-        {options.length > 0 &&
-          <FeedbackOptions
-            options={options}
-            onLeaveFeedback={onLeaveFeedback} />
-        }
+        <FeedbackOptions
+          options={Object.keys(state)}
+          onLeaveFeedback={onLeaveFeedback} />
       </Section>
 
       <Section title={'Statistics'}>
@@ -57,7 +51,7 @@ const FeedBack = () => {
         }
       </Section>
 
-      {totalFeedback ? <Button reset={resetFeedback} /> : null}
+      {countTotalFeedback() ? <Button reset={resetFeedback} /> : null}
     </section>
   );
 }

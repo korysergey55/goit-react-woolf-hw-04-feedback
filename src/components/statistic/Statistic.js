@@ -17,7 +17,7 @@ const Statistic = ({ state, totalFeedback, positivePercentage }) => {
         <p className={styles.title}>Total: {totalFeedback}</p>
       </li>
       <li className={styles.item}>
-        <p className={styles.title}>Positive feedback: {positivePercentage()} % </p>
+        <p className={styles.title}>Positive feedback: {positivePercentage} % </p>
       </li>
     </ul>
   )
